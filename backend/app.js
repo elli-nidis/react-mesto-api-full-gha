@@ -14,6 +14,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const { login, createUser } = require('./controllers/users');
 const { regexpEmail } = require('./utils/constants');
 const NotFoundError = require('./errors/notFoundError');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const notFoundError = new NotFoundError('Такой страницы не существует');
 
@@ -23,6 +24,7 @@ app.use(helmet());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -46,8 +48,8 @@ app.use('/cards', auth, require('./routes/cards'));
 
 app.use('*', (_req, _res, next) => next(notFoundError));
 
+app.use(errorLogger);
 app.use(errors());
-
 app.use(errorHandler);
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {

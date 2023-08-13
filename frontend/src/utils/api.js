@@ -79,6 +79,7 @@ class Api {
 
   // отправляю лайк на сервер
    putLike(idCard) {
+    console.log(`putLike idCard ${idCard}`);
     return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'PUT',
       credentials: 'include',
@@ -89,6 +90,7 @@ class Api {
 
   // удаляю лайк с сервера
   deleteLike(idCard) {
+    console.log(`deleteLike idCard ${idCard}`);
     return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'DELETE',
       credentials: 'include',
@@ -117,7 +119,7 @@ class Api {
 const api = new Api({
   baseUrl: apiConfig.baseUrl,
   headers: {
-    // authorization: apiConfig.token,
+    authorization: apiConfig.token,
     'Content-Type': 'application/json'
   }
 }); 
