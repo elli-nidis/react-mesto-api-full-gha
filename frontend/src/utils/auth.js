@@ -5,9 +5,10 @@ export const register = (email, password) => {
   return fetch(`${BASE_URL}signup`, {
     method: 'POST',
     headers: {
+      "Accept": "application/json",
       "Content-Type": "application/json"
     },
-    credentials: 'include',
+    // credentials: 'include',
     body: JSON.stringify({password, email})
   })
   .then (response => {
@@ -27,10 +28,12 @@ export const register = (email, password) => {
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}signin`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
+      "Accept": "application/json",
       "Content-Type": "application/json"
     },
-    credentials: 'include',
+   
     body: JSON.stringify({password, email})
     // body: JSON.stringify({email, password})
   })

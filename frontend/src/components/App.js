@@ -72,57 +72,104 @@ function App() {
     setSelectedCard(null);
   }
 
-  function handleLogin(currentUserEmail) {
+  // function handleLogin(currentUserEmail) {
+  //   setLoggedIn(true);
+  //   setCurrentUserEmail(currentUserEmail);
+  //   console.log(`handleLogin currentUserEmail ${currentUserEmail}`);
+  //   console.log(`handleLogin loggedIn ${loggedIn}`);
+  // }
+
+  function handleLogin(email) {
+    setCurrentUserEmail(email);
     setLoggedIn(true);
-    setCurrentUserEmail(currentUserEmail);
+    console.log(`handleLogin prop email: ${email}`);
+    console.log(`handleLogin currentUserEmail: ${currentUserEmail}`);
+    console.log(`handleLogin loggedIn: ${loggedIn}`);
   }
 
   function handleLogOut() {
     setLoggedIn(false);
     setCurrentUserEmail('');
+    console.log(`handleLogOut setLoggedIn ${loggedIn}`);
   }
 
+  // React.useEffect(() => {
+  //   tokenCheck();
+  // }, [])
+
+  // function tokenCheck() {
+  //   // if(localStorage.getItem('token')) {
+  //   //   const token = localStorage.getItem('token');
+  //   //   console.log('tokenCheck');
+
+  //     // if(token) {
+  //       // getCurrentUser(token).then(result => {
+  //       getCurrentUser()
+  //       .then(result => {
+  //         console.log(`tokenCheck getCurrentUser result ${result}`);
+  //         console.log({result});
+  //         if (result._id) {
+  //           setLoggedIn(true);
+  //           console.log(`tokenCheck getCurrentUser setLoggedIn ${loggedIn}`);
+  //           setCurrentUserEmail(result.email);
+  //           navigate("/", {replace: true});
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         // setLoggedIn(false);
+  //         console.log(`Произошла ошибка в функции tokenCheck ${error}: ${error.massage}`);
+  //       })
+  //     // }
+  //   // }
+  // }
+
+  // React.useEffect(() => {
+  //   tokenCheck();
+  // }, []);
+
   React.useEffect(() => {
-    tokenCheck();
-  }, [])
-
-  function tokenCheck() {
-    // if(localStorage.getItem('token')) {
-      // const token = localStorage.getItem('token');
-      // console.log('tokenCheck');
-
-      // if(token) {
-        // getCurrentUser(token).then(result => {
-        getCurrentUser()
-        .then(result => {
-          if (result) {
-            setLoggedIn(true);
-            setCurrentUserEmail(result.email);
-            navigate("/", {replace: true});
+    if(localStorage.getItem('token')) {
+          const token = localStorage.getItem('token');
+          console.log('tokenCheck');
+    
+          if(token) {
+            getCurrentUser(token).then(result => {
+            // getCurrentUser()
+            // .then(result => {
+              console.log(`tokenCheck getCurrentUser result ${result}`);
+              console.log({result});
+              if (result._id) {
+                setLoggedIn(true);
+                console.log(`tokenCheck getCurrentUser setLoggedIn: ${loggedIn}`);
+                setCurrentUserEmail(result.email);
+                console.log(`tokenCheck setCurrentUserEmail: ${currentUserEmail}`);
+                navigate("/", {replace: true});
+              }
+            })
+            .catch((error) => {
+              // setLoggedIn(false);
+              console.log(`Произошла ошибка в функции tokenCheck ${error}: ${error.massage}`);
+            })
           }
-        })
-        .catch((error) => {
-          setLoggedIn(false);
-          console.log(`Произошла ошибка в функции tokenCheck ${error}: ${error.massage}`);
-        })
-      // }
-    // }
-  }
-
-  React.useEffect(() => {
-    tokenCheck();
-  }, []);
+        }
+      
+  },
+  [navigate]);
 
   
   React.useEffect(
     () => {
-      Promise.all([api.getUser(), api.getInitialCards()])
+      if (loggedIn) {
+        Promise.all([api.getUser(), api.getInitialCards()])
         .then(([userData, cardsData]) => {
+          console.log('***сработал юзЭффект гетЮзер и ГетИнишлКардс***');
           setCurrentUser(userData);
           setCards(cardsData);
         })
         .catch((err) => console.log(`${err}: ${err.massage}`));
-    }, []
+      }
+      
+    }, [loggedIn]
   );
 
   function handleCardLike(card) {

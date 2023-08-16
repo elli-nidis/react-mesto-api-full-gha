@@ -4,7 +4,7 @@ class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = {
-      authorization: options.headers.authorization,
+      // authorization: options.headers.authorization,
       'Content-Type': options.headers['Content-Type']
     };
   }
@@ -119,7 +119,7 @@ class Api {
 const api = new Api({
   baseUrl: apiConfig.baseUrl,
   headers: {
-    authorization: apiConfig.token,
+    // authorization: apiConfig.token,
     'Content-Type': 'application/json'
   }
 }); 

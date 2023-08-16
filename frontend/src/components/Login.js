@@ -31,6 +31,8 @@ function Login({handleLogin}) {
       .then((res) => {
         // if(res.token) {
           // localStorage.setItem('token', res.token);
+          localStorage.setItem('token', res._id);
+          console.log(`handleSubmit email ${email}`);
           handleLogin(email);
           setFormValue({
             email: '',
