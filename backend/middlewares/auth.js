@@ -1,3 +1,4 @@
+const { NODE_ENV, JWT_SECRET } = process.env;
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/unauthorizedError');
 
@@ -14,7 +15,7 @@ function auth(req, _res, next) {
   let payload;
 
   try {
-    payload = jwt.verify(token, 'secret-word-mutabor');
+    payload = jwt.verify(token, `${NODE_ENV === 'production' ? JWT_SECRET : 'secret-word-mutabor'}`);
   } catch (err) {
     return next(unauthorizedError);
   }
