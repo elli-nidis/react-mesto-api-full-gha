@@ -5,7 +5,8 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 
-const { PORT = 4000 } = process.env;
+// const { PORT = 4000 } = process.env;
+const { PORT = 3000 } = process.env;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
@@ -23,7 +24,11 @@ const notFoundError = new NotFoundError('Такой страницы не сущ
 const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: ['http://localhost:3000', 'https://haze.nomoreparties.co'], credentials: true }));
+app.use(cors({ origin: [
+  // 'http://localhost:3000',
+  'https://haze.nomoreparties.co',
+],
+credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(requestLogger);
