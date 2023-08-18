@@ -26,13 +26,11 @@ function Login({handleLogin}) {
     const {email, password} = formValue;
 
     auth.authorize(email, password)
-      // .then(res => {
       // eslint-disable-next-line no-unused-vars
       .then((res) => {
         // if(res.token) {
-          // localStorage.setItem('token', res.token);
           localStorage.setItem('token', res._id);
-          console.log(`handleSubmit email ${email}`);
+          // console.log(`handleSubmit email ${email}`);
           handleLogin(email);
           setFormValue({
             email: '',

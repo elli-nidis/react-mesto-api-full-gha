@@ -1,4 +1,3 @@
-// export const BASE_URL = 'https://auth.nomoreparties.co/';
 export const BASE_URL = 'http://localhost:4000/';
 
 export const register = (email, password) => {
@@ -35,7 +34,6 @@ export const authorize = (email, password) => {
     },
    
     body: JSON.stringify({password, email})
-    // body: JSON.stringify({email, password})
   })
   .then (response => {
     try {
@@ -49,13 +47,11 @@ export const authorize = (email, password) => {
   })
 }
 
-// export const getCurrentUser = (token) => {
 export const getCurrentUser = () => {
   return fetch(`${BASE_URL}users/me`, {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
-      // "Authorization" : `Bearer ${token}`
     },
     credentials: 'include'
   })

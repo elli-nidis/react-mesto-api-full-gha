@@ -4,7 +4,6 @@ class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = {
-      // authorization: options.headers.authorization,
       'Content-Type': options.headers['Content-Type']
     };
   }
@@ -79,7 +78,7 @@ class Api {
 
   // отправляю лайк на сервер
    putLike(idCard) {
-    console.log(`putLike idCard ${idCard}`);
+    // console.log(`putLike idCard ${idCard}`);
     return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'PUT',
       credentials: 'include',
@@ -90,7 +89,7 @@ class Api {
 
   // удаляю лайк с сервера
   deleteLike(idCard) {
-    console.log(`deleteLike idCard ${idCard}`);
+    // console.log(`deleteLike idCard ${idCard}`);
     return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'DELETE',
       credentials: 'include',
@@ -119,7 +118,6 @@ class Api {
 const api = new Api({
   baseUrl: apiConfig.baseUrl,
   headers: {
-    // authorization: apiConfig.token,
     'Content-Type': 'application/json'
   }
 }); 
