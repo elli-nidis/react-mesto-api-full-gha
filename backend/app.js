@@ -23,7 +23,7 @@ const notFoundError = new NotFoundError('Такой страницы не сущ
 const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://haze.nomoreparties.co'], credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(requestLogger);

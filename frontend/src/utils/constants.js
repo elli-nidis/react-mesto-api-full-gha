@@ -11,7 +11,8 @@ const validationConfig = {
 
 //объект с настройками api
 const apiConfig = {
-  baseUrl: 'http://localhost:4000',
+  // baseUrl: 'http://localhost:4000',
+  baseUrl: 'https://api.haze.nomoreparties.co',
 }
 
 export {validationConfig, apiConfig};
